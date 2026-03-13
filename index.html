@@ -4,26 +4,69 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Eastbridge Provisions — Coming Soon</title>
+
+<!-- Security Headers (#9) -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
 <!-- SEO -->
 <meta name="description" content="Eastbridge Provisions brings premium global food products to the United States. Importing the world's finest foods with quality and trust. Launching soon.">
-<meta name="keywords" content="Eastbridge Provisions, food imports USA, global food distributor, premium food imports, Chicago food importer">
+<meta name="keywords" content="Eastbridge Provisions, food imports USA, global food distributor, premium food imports, Chicago food importer, buffalo ghee, Indian dairy products">
 <meta name="author" content="Eastbridge Provisions LLC">
 <meta name="robots" content="index, follow">
-<!-- Open Graph (social sharing previews) -->
+
+<!-- Open Graph -->
 <meta property="og:title" content="Eastbridge Provisions — Launching Soon">
-<meta property="og:description" content="Bringing the World's Finest Foods to Your Table. Premium global food imports. Launching soon from Chicago, USA.">
+<meta property="og:description" content="Sourcing the World's Finest Foods for the American Table. Premium global food imports. Launching soon from Chicago, USA.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://eastbridgeprovisions.com">
 <meta property="og:image" content="https://eastbridgeprovisions.com/favicon-512.png">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Eastbridge Provisions — Launching Soon">
-<meta name="twitter:description" content="Bringing the World's Finest Foods to Your Table.">
+<meta name="twitter:description" content="Sourcing the World's Finest Foods for the American Table.">
 <meta name="twitter:image" content="https://eastbridgeprovisions.com/favicon-512.png">
+
+<!-- Structured Data (#8) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Eastbridge Provisions LLC",
+  "url": "https://eastbridgeprovisions.com",
+  "logo": "https://eastbridgeprovisions.com/favicon-512.png",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Chicago",
+    "addressRegion": "IL",
+    "addressCountry": "USA"
+  },
+  "sameAs": [
+    "https://www.instagram.com/eastbridgeprovisions",
+    "https://www.linkedin.com/company/eastbridge-provisions"
+  ]
+}
+</script>
+
+<!-- Google Analytics GA4 (#14) — uncomment and replace G-XXXXXXXXXX with your real ID -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
+
+<link rel="mask-icon" href="favicon.svg" color="#c8a84b">
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -32,16 +75,23 @@
     --cream:#f5efe4; --cream-dim:#d4c9b0;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{width:100%;height:100%;overflow:hidden;font-family:'Cormorant Garamond',Georgia,serif;background:var(--green-deep);}
+
+  /* #15 — overflow-x:hidden so mobile can scroll vertically */
+  html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:'Cormorant Garamond',Georgia,serif;background:var(--green-deep);}
+
+  /* #11 — Luxury loading fade in */
+  body{opacity:0;transition:opacity 0.9s ease;}
+  body.loaded{opacity:1;}
+
   #bgCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
   .noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.04;
     background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size:180px;}
   .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,0.82) 100%);}
-  .stage{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+  .stage{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:90px 20px 40px;min-height:100vh;}
 
   /* TOP BAR */
-  .topbar{position:absolute;top:0;left:0;right:0;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(200,168,75,0.15);backdrop-filter:blur(4px);opacity:0;animation:fadeDown 1s ease 0.3s forwards;}
+  .topbar{position:fixed;top:0;left:0;right:0;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(200,168,75,0.15);backdrop-filter:blur(4px);z-index:20;opacity:0;animation:fadeDown 1s ease 0.3s forwards;}
   .topbar-left{font-family:'Cinzel',serif;font-size:8px;letter-spacing:5px;color:rgba(200,168,75,0.6);}
   .topbar-center{display:flex;align-items:center;gap:10px;}
   .topbar-center .tl{width:40px;height:1px;background:linear-gradient(to right,transparent,var(--gold));}
@@ -79,36 +129,68 @@
   .badge::after{content:'';position:absolute;top:-1px;left:-120%;width:55%;height:1px;background:linear-gradient(to right,transparent,var(--gold-light),transparent);animation:shimmer 3s ease-in-out 3s infinite;}
   .badge span{font-family:'Cinzel',serif;font-size:clamp(18px,3vw,36px);font-weight:600;letter-spacing:0.3em;color:var(--gold-light);text-shadow:0 0 40px rgba(232,201,107,0.6);position:relative;z-index:1;}
 
-  /* 3 FEATURE PILLS */
+  /* COUNTDOWN (#4) */
+  .countdown-wrap{margin-top:18px;opacity:0;animation:fadeUp 1s ease 1.7s forwards;text-align:center;}
+  .countdown-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:5px;color:rgba(200,168,75,0.5);margin-bottom:10px;}
+  .countdown{display:flex;gap:16px;justify-content:center;align-items:flex-end;flex-wrap:wrap;}
+  .cd-unit{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .cd-num{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,40px);font-weight:800;color:var(--gold-light);text-shadow:0 0 30px rgba(232,201,107,0.35);line-height:1;min-width:56px;text-align:center;}
+  .cd-lbl{font-family:'Cinzel',serif;font-size:7px;letter-spacing:4px;color:rgba(200,168,75,0.45);}
+  .cd-sep{font-family:'Cinzel',serif;font-size:clamp(16px,2.5vw,26px);color:rgba(200,168,75,0.25);padding-bottom:8px;}
+
+  /* FEATURE PILLS */
   .features{display:flex;gap:16px;margin-top:18px;opacity:0;animation:fadeUp 1s ease 1.8s forwards;flex-wrap:wrap;justify-content:center;}
   .feat{display:flex;align-items:center;gap:8px;padding:7px 16px;border:1px solid rgba(200,168,75,0.25);background:rgba(200,168,75,0.06);}
   .feat-icon{font-size:14px;}
   .feat span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:rgba(200,168,75,0.75);}
 
+  /* PRODUCT TEASERS (#6) */
+  .products-wrap{margin-top:20px;opacity:0;animation:fadeUp 1s ease 1.88s forwards;text-align:center;max-width:560px;}
+  .products-title{font-family:'Cinzel',serif;font-size:8px;letter-spacing:5px;color:rgba(200,168,75,0.5);margin-bottom:12px;}
+  .products-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+  .prod-item{font-family:'Cormorant Garamond',serif;font-size:clamp(12px,1.3vw,14px);font-style:italic;letter-spacing:0.15em;color:rgba(212,201,176,0.65);padding:5px 14px;border:1px solid rgba(200,168,75,0.12);background:rgba(200,168,75,0.03);}
+
+  /* DISTRIBUTOR BANNER */
+  .dist-banner{display:flex;align-items:center;gap:16px;margin-top:16px;padding:12px 24px;border:1px solid rgba(200,168,75,0.3);background:linear-gradient(135deg,rgba(200,168,75,0.08),rgba(45,90,61,0.15));opacity:0;animation:fadeUp 1s ease 1.95s forwards;max-width:620px;text-align:center;}
+  .dist-icon{font-size:16px;flex-shrink:0;}
+  .dist-text{display:flex;flex-direction:column;gap:4px;}
+  .dist-title-text{font-family:'Cinzel',serif;font-size:clamp(9px,1.1vw,11px);letter-spacing:4px;color:var(--gold-light);font-weight:600;}
+  .dist-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(11px,1.3vw,14px);font-style:italic;letter-spacing:0.1em;color:rgba(212,201,176,0.7);}
+
+  /* DISTRIBUTOR CTA (#7) */
+  .dist-cta{margin-top:10px;opacity:0;animation:fadeUp 1s ease 1.97s forwards;text-align:center;}
+  .dist-cta-text{font-family:'Cormorant Garamond',serif;font-size:clamp(12px,1.3vw,14px);font-style:italic;letter-spacing:0.1em;color:rgba(212,201,176,0.6);}
+  .dist-cta-link{font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:var(--gold);cursor:pointer;border-bottom:1px solid rgba(200,168,75,0.3);padding-bottom:1px;transition:color .3s;}
+  .dist-cta-link:hover{color:var(--gold-light);}
+
   /* EMAIL FORM */
-  .notify-label{margin-top:20px;font-family:'Cormorant Garamond',serif;font-size:clamp(12px,1.3vw,15px);font-style:italic;letter-spacing:0.2em;color:rgba(212,201,176,0.6);opacity:0;animation:fadeUp 1s ease 2s forwards;text-align:center;}
+  .notify-label{margin-top:18px;font-family:'Cormorant Garamond',serif;font-size:clamp(12px,1.3vw,15px);font-style:italic;letter-spacing:0.2em;color:rgba(212,201,176,0.6);opacity:0;animation:fadeUp 1s ease 2s forwards;text-align:center;}
   .notify{margin-top:10px;display:flex;gap:0;opacity:0;animation:fadeUp 1s ease 2.1s forwards;}
   .notify input{background:rgba(255,255,255,0.06);border:1px solid rgba(200,168,75,0.45);border-right:none;padding:13px 22px;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0.1em;color:var(--cream);outline:none;width:clamp(180px,22vw,290px);transition:border-color .3s;}
   .notify input::placeholder{color:rgba(212,201,176,0.4);font-style:italic;}
   .notify input:focus{border-color:var(--gold);}
   .notify button{background:linear-gradient(135deg,var(--gold-dark),var(--gold));border:1px solid var(--gold);padding:13px 26px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.25em;color:var(--green-deep);cursor:pointer;transition:all .3s;font-weight:700;}
   .notify button:hover{background:linear-gradient(135deg,var(--gold),var(--gold-light));}
-  #formMsg{margin-top:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:#e8c96b;opacity:0;transition:opacity .6s;height:16px;text-align:center;}
+  #formMsg{margin-top:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2.5px;color:#e8c96b;opacity:0;transition:opacity .6s;min-height:36px;text-align:center;line-height:1.8;}
 
-  /* BOTTOM FOOTER */
-  .foot{position:absolute;bottom:0;left:0;right:0;padding:14px 40px;border-top:1px solid rgba(200,168,75,0.15);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;opacity:0;animation:fadeUp 1s ease 2.4s forwards;}
-  .foot-item{display:flex;align-items:center;gap:22px;}
-  .fdot{width:3px;height:3px;border-radius:50%;background:rgba(200,168,75,0.4);margin:0 22px;}
+  /* FOUNDER MESSAGE (#5) */
+  .founder-wrap{margin-top:24px;opacity:0;animation:fadeUp 1s ease 2.2s forwards;max-width:480px;text-align:center;padding:20px 28px;border-top:1px solid rgba(200,168,75,0.1);border-bottom:1px solid rgba(200,168,75,0.1);}
+  .founder-text{font-family:'Cormorant Garamond',serif;font-size:clamp(12px,1.35vw,15px);font-style:italic;font-weight:300;letter-spacing:0.06em;color:rgba(212,201,176,0.58);line-height:1.9;}
+  .founder-sig{margin-top:12px;font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:4px;color:rgba(200,168,75,0.4);}
+
+  /* SOCIAL MEDIA (#12) */
+  .social-wrap{margin-top:18px;opacity:0;animation:fadeUp 1s ease 2.3s forwards;display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;}
+  .social-label{font-family:'Cinzel',serif;font-size:7px;letter-spacing:4px;color:rgba(200,168,75,0.3);}
+  .social-links{display:flex;gap:18px;}
+  .social-link{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:3px;color:rgba(200,168,75,0.38);text-decoration:none;border-bottom:1px solid rgba(200,168,75,0.12);padding-bottom:1px;transition:color .3s;}
+  .social-link:hover{color:rgba(200,168,75,0.7);}
+
+  /* FOOTER */
+  .foot{position:relative;margin-top:24px;padding:16px 40px;border-top:1px solid rgba(200,168,75,0.15);display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;opacity:0;animation:fadeUp 1s ease 2.4s forwards;width:100%;}
+  .fdot{width:3px;height:3px;border-radius:50%;background:rgba(200,168,75,0.4);margin:0 16px;}
   .foot span,.foot a{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:3.5px;color:rgba(200,168,75,0.55);text-decoration:none;white-space:nowrap;transition:color .3s;}
-  .foot a:hover{color:var(--gold-light);}
+  .foot a:hover,.foot span#emailLink:hover{color:var(--gold-light);}
 
-
-  /* DISTRIBUTOR BANNER */
-  .dist-banner{display:flex;align-items:center;gap:16px;margin-top:16px;padding:12px 24px;border:1px solid rgba(200,168,75,0.3);background:linear-gradient(135deg,rgba(200,168,75,0.08),rgba(45,90,61,0.15));opacity:0;animation:fadeUp 1s ease 1.95s forwards;max-width:620px;text-align:center;}
-  .dist-icon{font-size:16px;flex-shrink:0;}
-  .dist-text{display:flex;flex-direction:column;gap:4px;}
-  .dist-title{font-family:'Cinzel',serif;font-size:clamp(9px,1.1vw,11px);letter-spacing:4px;color:var(--gold-light);font-weight:600;}
-  .dist-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(11px,1.3vw,14px);font-style:italic;letter-spacing:0.1em;color:rgba(212,201,176,0.7);}
   @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
   @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
   @keyframes shimmer{0%{left:-120%}100%{left:220%}}
@@ -136,7 +218,7 @@
     <div class="topbar-right">EASTBRIDGEPROVISIONS.COM</div>
   </div>
 
-  <!-- WELCOME -->
+  <!-- WELCOME (#3 — Title Case) -->
   <div class="welcome-wrap">
     <div class="welcome-line">
       <div class="wl"></div>
@@ -171,112 +253,62 @@
           <feGaussianBlur stdDeviation="2.5" result="blur"/>
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
-        <filter id="softglow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="4" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
       </defs>
-
-      <!-- Outer circle ring -->
       <circle cx="100" cy="100" r="97" fill="url(#lG)" stroke="url(#lA)" stroke-width="1.5"/>
-      <!-- Inner ring -->
       <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(200,168,75,0.25)" stroke-width="0.8"/>
-      <!-- Decorative dashed ring -->
       <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(200,168,75,0.12)" stroke-width="0.6" stroke-dasharray="4 6"/>
-
-      <!-- Center radial glow -->
       <circle cx="100" cy="100" r="80" fill="url(#centerGlow)"/>
-
-      <!-- Corner star ornaments -->
       <text x="100" y="18" font-family="serif" font-size="10" fill="#c8a84b" text-anchor="middle" opacity="0.7">✦</text>
       <text x="100" y="195" font-family="serif" font-size="10" fill="#c8a84b" text-anchor="middle" opacity="0.7">✦</text>
       <text x="12" y="104" font-family="serif" font-size="10" fill="#c8a84b" text-anchor="middle" opacity="0.7">✦</text>
       <text x="190" y="104" font-family="serif" font-size="10" fill="#c8a84b" text-anchor="middle" opacity="0.7">✦</text>
-
-      <!-- BRIDGE GROUP -->
       <g transform="translate(100, 105)" filter="url(#glow)">
-
-        <!-- Road/deck — thick gold bar -->
         <rect x="-58" y="12" width="116" height="7" rx="3" fill="url(#lA)"/>
-
-        <!-- Main suspension arch -->
-        <path d="M-58 16 Q-30 -38 0 -48 Q30 -38 58 16"
-              fill="none" stroke="url(#lA)" stroke-width="5" stroke-linecap="round"/>
-
-        <!-- Left tower -->
+        <path d="M-58 16 Q-30 -38 0 -48 Q30 -38 58 16" fill="none" stroke="url(#lA)" stroke-width="5" stroke-linecap="round"/>
         <rect x="-34" y="-22" width="10" height="40" rx="3" fill="url(#lAv)"/>
-        <!-- Left tower cap -->
         <rect x="-39" y="-30" width="20" height="9" rx="2.5" fill="#e8c96b"/>
-        <!-- Left tower pinnacle -->
         <polygon points="-29,-30 -29,-42 -35,-30" fill="#c8a84b" opacity="0.9"/>
         <polygon points="-29,-30 -29,-42 -23,-30" fill="#e8c96b" opacity="0.9"/>
-
-        <!-- Right tower -->
         <rect x="24" y="-22" width="10" height="40" rx="3" fill="url(#lAv)"/>
-        <!-- Right tower cap -->
         <rect x="19" y="-30" width="20" height="9" rx="2.5" fill="#e8c96b"/>
-        <!-- Right tower pinnacle -->
         <polygon points="29,-30 29,-42 23,-30" fill="#c8a84b" opacity="0.9"/>
         <polygon points="29,-30 29,-42 35,-30" fill="#e8c96b" opacity="0.9"/>
-
-        <!-- Suspension cables left -->
         <line x1="-29" y1="-20" x2="-58" y2="14" stroke="#d4a84b" stroke-width="1.5" opacity="0.8"/>
         <line x1="-29" y1="-20" x2="-40" y2="14" stroke="#d4a84b" stroke-width="1.3" opacity="0.7"/>
         <line x1="-29" y1="-20" x2="-20" y2="14" stroke="#d4a84b" stroke-width="1.2" opacity="0.65"/>
         <line x1="-29" y1="-20" x2="0"   y2="14" stroke="#d4a84b" stroke-width="1"   opacity="0.55"/>
-
-        <!-- Suspension cables right -->
         <line x1="29" y1="-20" x2="58"  y2="14" stroke="#d4a84b" stroke-width="1.5" opacity="0.8"/>
         <line x1="29" y1="-20" x2="40"  y2="14" stroke="#d4a84b" stroke-width="1.3" opacity="0.7"/>
         <line x1="29" y1="-20" x2="20"  y2="14" stroke="#d4a84b" stroke-width="1.2" opacity="0.65"/>
         <line x1="29" y1="-20" x2="0"   y2="14" stroke="#d4a84b" stroke-width="1"   opacity="0.55"/>
-
-        <!-- Water ripples -->
-        <path d="M-52 26 Q-39 20 -26 26 Q-13 32 0 26 Q13 20 26 26 Q39 32 52 26"
-              fill="none" stroke="#4a9a6a" stroke-width="2" opacity="0.55" stroke-linecap="round"/>
-        <path d="M-44 35 Q-33 30 -22 35 Q-11 40 0 35 Q11 30 22 35 Q33 40 44 35"
-              fill="none" stroke="#4a9a6a" stroke-width="1.4" opacity="0.3" stroke-linecap="round"/>
-
-        <!-- LEFT wheat stalk -->
+        <path d="M-52 26 Q-39 20 -26 26 Q-13 32 0 26 Q13 20 26 26 Q39 32 52 26" fill="none" stroke="#4a9a6a" stroke-width="2" opacity="0.55" stroke-linecap="round"/>
+        <path d="M-44 35 Q-33 30 -22 35 Q-11 40 0 35 Q11 30 22 35 Q33 40 44 35" fill="none" stroke="#4a9a6a" stroke-width="1.4" opacity="0.3" stroke-linecap="round"/>
         <line x1="-48" y1="14" x2="-48" y2="48" stroke="#c8a84b" stroke-width="1.8" opacity="0.9"/>
         <ellipse cx="-48" cy="12" rx="4.5" ry="9" fill="#c8a84b" opacity="0.95"/>
         <ellipse cx="-42" cy="18" rx="4" ry="7" fill="#c8a84b" opacity="0.85" transform="rotate(30 -42 18)"/>
         <ellipse cx="-54" cy="18" rx="4" ry="7" fill="#c8a84b" opacity="0.85" transform="rotate(-30 -54 18)"/>
         <ellipse cx="-42" cy="27" rx="3.5" ry="6" fill="#b8933a" opacity="0.7" transform="rotate(22 -42 27)"/>
         <ellipse cx="-54" cy="27" rx="3.5" ry="6" fill="#b8933a" opacity="0.7" transform="rotate(-22 -54 27)"/>
-
-        <!-- LEFT wheat stalk 2 -->
         <line x1="-38" y1="14" x2="-38" y2="48" stroke="#c8a84b" stroke-width="1.6" opacity="0.8"/>
         <ellipse cx="-38" cy="13" rx="4" ry="8" fill="#c8a84b" opacity="0.85"/>
         <ellipse cx="-33" cy="19" rx="3.5" ry="6" fill="#c8a84b" opacity="0.75" transform="rotate(28 -33 19)"/>
         <ellipse cx="-43" cy="19" rx="3.5" ry="6" fill="#c8a84b" opacity="0.75" transform="rotate(-28 -43 19)"/>
-
-        <!-- RIGHT wheat stalk -->
         <line x1="48" y1="14" x2="48" y2="48" stroke="#c8a84b" stroke-width="1.8" opacity="0.9"/>
         <ellipse cx="48" cy="12" rx="4.5" ry="9" fill="#c8a84b" opacity="0.95"/>
         <ellipse cx="54" cy="18" rx="4" ry="7" fill="#c8a84b" opacity="0.85" transform="rotate(30 54 18)"/>
         <ellipse cx="42" cy="18" rx="4" ry="7" fill="#c8a84b" opacity="0.85" transform="rotate(-30 42 18)"/>
         <ellipse cx="54" cy="27" rx="3.5" ry="6" fill="#b8933a" opacity="0.7" transform="rotate(22 54 27)"/>
         <ellipse cx="42" cy="27" rx="3.5" ry="6" fill="#b8933a" opacity="0.7" transform="rotate(-22 42 27)"/>
-
-        <!-- RIGHT wheat stalk 2 -->
-        <line x1="38" y1="14" x2="38" y2="48" stroke="#c8a84b" stroke-width="1.6" opacity="0.8"/>
+        <line x1="38" y1="14" x2="38" y2="48" stroke="#c8a84b" stroke-width="1.8" opacity="0.9"/>
         <ellipse cx="38" cy="13" rx="4" ry="8" fill="#c8a84b" opacity="0.85"/>
         <ellipse cx="43" cy="19" rx="3.5" ry="6" fill="#c8a84b" opacity="0.75" transform="rotate(28 43 19)"/>
         <ellipse cx="33" cy="19" rx="3.5" ry="6" fill="#c8a84b" opacity="0.75" transform="rotate(-28 33 19)"/>
-
       </g>
-
-      <!-- EP monogram at bottom -->
-      <text x="100" y="183" font-family="Cinzel,serif" font-size="11" fill="#c8a84b"
-            text-anchor="middle" letter-spacing="5" opacity="0.75" font-weight="600">E · P</text>
-
-      <!-- Top arc text -->
+      <text x="100" y="183" font-family="Cinzel,serif" font-size="11" fill="#c8a84b" text-anchor="middle" letter-spacing="5" opacity="0.75" font-weight="600">E · P</text>
       <path id="topArc" d="M 28,100 A 72,72 0 0,1 172,100" fill="none"/>
       <text font-family="Cinzel,serif" font-size="7.5" fill="#c8a84b" letter-spacing="3.5" opacity="0.65">
         <textPath href="#topArc" startOffset="50%" text-anchor="middle">EASTBRIDGE  PROVISIONS</textPath>
       </text>
-
     </svg>
   </div>
 
@@ -284,9 +316,25 @@
   <div class="div-row"><div class="dline"></div><div class="dia"></div><div class="dline r"></div></div>
   <div class="brand-prov">PROVISIONS</div>
   <div class="gold-rule"></div>
-  <div class="sub-label">Bringing the World's Finest Food Products to Your Table</div>
+
+  <!-- TAGLINE (#2 — stronger wording) -->
+  <div class="sub-label">Sourcing the World's Finest Foods for the American Table</div>
 
   <div class="badge"><span>✦ &nbsp; LAUNCHING SOON &nbsp; ✦</span></div>
+
+  <!-- COUNTDOWN (#4) -->
+  <div class="countdown-wrap">
+    <div class="countdown-label">LAUNCHING IN</div>
+    <div class="countdown">
+      <div class="cd-unit"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl">DAYS</div></div>
+      <div class="cd-sep">·</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-hours">--</div><div class="cd-lbl">HOURS</div></div>
+      <div class="cd-sep">·</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-lbl">MINUTES</div></div>
+      <div class="cd-sep">·</div>
+      <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-lbl">SECONDS</div></div>
+    </div>
+  </div>
 
   <!-- FEATURE PILLS -->
   <div class="features">
@@ -295,23 +343,59 @@
     <div class="feat"><div class="feat-icon">🚚</div><span>USA DISTRIBUTION</span></div>
   </div>
 
+  <!-- PRODUCT TEASERS (#6) -->
+  <div class="products-wrap">
+    <div class="products-title">✦ &nbsp; COMING SOON &nbsp; ✦</div>
+    <div class="products-grid">
+      <div class="prod-item">Premium Buffalo Ghee</div>
+      <div class="prod-item">Traditional Indian Dairy Products</div>
+      <div class="prod-item">Authentic Regional Foods</div>
+      <div class="prod-item">Carefully Selected Global Specialties</div>
+    </div>
+  </div>
+
   <!-- DISTRIBUTOR BANNER -->
   <div class="dist-banner">
     <div class="dist-icon">🤝</div>
     <div class="dist-text">
-      <span class="dist-title">REGIONAL DISTRIBUTORS WELCOME</span>
-      <span class="dist-sub">Subscribe to our product mailing list for wholesale pricing, catalogs &amp; partnership opportunities</span>
+      <span class="dist-title-text">REGIONAL DISTRIBUTORS WELCOME</span>
+      <span class="dist-sub">Subscribe to our product mailing list for wholesale pricing, catalogs, and partnership opportunities</span>
     </div>
     <div class="dist-icon">🤝</div>
   </div>
 
+  <!-- DISTRIBUTOR CTA (#7) -->
+  <div class="dist-cta">
+    <div class="dist-cta-text">Are you a distributor or retailer? &nbsp;<span class="dist-cta-link" id="distCtaLink">CONTACT US FOR EARLY PARTNERSHIP OPPORTUNITIES →</span></div>
+  </div>
+
   <!-- EMAIL CAPTURE -->
   <div class="notify-label">Join our exclusive list — customers &amp; distributors alike</div>
-  <div class="notify">
-    <input type="email" id="emailInput" placeholder="Enter your email address…" onkeydown="if(event.key==='Enter')document.getElementById('notifyBtn').click()"/>
-    <button id="notifyBtn">NOTIFY ME</button>
-  </div>
+  <form class="notify" onsubmit="event.preventDefault(); submitEmail();">
+    <input type="email" id="emailInput" placeholder="Enter your email address…" required autocomplete="email" aria-label="Email address"/>
+    <button type="submit" id="notifyBtn">NOTIFY ME</button>
+  </form>
   <div id="formMsg"></div>
+
+  <!-- FOUNDER MESSAGE (#5) -->
+  <div class="founder-wrap">
+    <div class="founder-text">
+      Eastbridge Provisions was founded with a simple mission:<br><br>
+      to bring the world's finest traditional foods to the United States.<br><br>
+      We work directly with trusted producers to deliver quality,<br>authenticity, and exceptional flavor.
+    </div>
+    <div class="founder-sig">— FOUNDER, EASTBRIDGE PROVISIONS LLC</div>
+  </div>
+
+  <!-- SOCIAL MEDIA (#12) -->
+  <div class="social-wrap">
+    <div class="social-label">FOLLOW US</div>
+    <div class="social-links">
+      <a href="https://instagram.com/eastbridgeprovisions" target="_blank" rel="noopener" class="social-link">INSTAGRAM</a>
+      <a href="https://linkedin.com/company/eastbridge-provisions" target="_blank" rel="noopener" class="social-link">LINKEDIN</a>
+      <a href="https://youtube.com/@eastbridgeprovisions" target="_blank" rel="noopener" class="social-link">YOUTUBE</a>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <div class="foot">
@@ -319,32 +403,51 @@
     <div class="fdot"></div>
     <span>CHICAGO, IL · USA</span>
     <div class="fdot"></div>
-    <span id="emailLink" style="cursor:pointer;font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:3.5px;color:rgba(200,168,75,0.55);white-space:nowrap;"></span>
+    <span id="emailLink" style="cursor:pointer;font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:3.5px;color:rgba(200,168,75,0.55);white-space:nowrap;transition:color .3s;"></span>
     <div class="fdot"></div>
-    <span>© 2026 EASTBRIDGE PROVISIONS</span>
+    <span>© 2026 EASTBRIDGE PROVISIONS LLC</span>
   </div>
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── EMAIL rendered 100% via JS charCodes - invisible to Cloudflare scanner ──
+<script>
+// #11 — Luxury loading fade in
+window.addEventListener('load', function(){ document.body.classList.add('loaded'); });
+
+// ── EMAIL: char codes only, invisible to Cloudflare scanner ──
 (function(){
-  // Each number = ASCII code. Cloudflare only scans HTML text, not runtime JS arrays.
-  var p=[105,110,102,111];             // info
-  var at=[64];                          // @
-  var d=[101,97,115,116,98,114,105,   // eastbri
-         100,103,101,112,114,111,118,  // dgeprov
-         105,115,105,111,110,115,      // isions
-         46,99,111,109];               // .com
-  var all=p.concat(at).concat(d);
-  var email=all.map(function(n){return String.fromCharCode(n);}).join('');
+  var p=[105,110,102,111];
+  var at=[64];
+  var d=[101,97,115,116,98,114,105,100,103,101,112,114,111,118,105,115,105,111,110,115,46,99,111,109];
+  var email=p.concat(at).concat(d).map(function(n){return String.fromCharCode(n);}).join('');
   var el=document.getElementById('emailLink');
-  // Write the visible text and clickable link entirely at runtime
   el.textContent=email.toUpperCase();
-  el.style.cursor='pointer';
   el.addEventListener('click',function(){
     window.location.href=String.fromCharCode(109,97,105,108,116,111,58)+email;
   });
+  var cta=document.getElementById('distCtaLink');
+  if(cta) cta.addEventListener('click',function(){
+    window.location.href=String.fromCharCode(109,97,105,108,116,111,58)+email+String.fromCharCode(63)+'subject=Partnership%20Inquiry%20-%20Eastbridge%20Provisions';
+  });
+})();
+
+// ── COUNTDOWN (#4) — change launch date below ──
+(function(){
+  var launch=new Date('2026-03-31T00:00:00');
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    var diff=launch-new Date();
+    if(diff<=0){
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id){document.getElementById(id).textContent='00';});
+      return;
+    }
+    document.getElementById('cd-days').textContent =pad(Math.floor(diff/86400000));
+    document.getElementById('cd-hours').textContent=pad(Math.floor((diff%86400000)/3600000));
+    document.getElementById('cd-mins').textContent =pad(Math.floor((diff%3600000)/60000));
+    document.getElementById('cd-secs').textContent =pad(Math.floor((diff%60000)/1000));
+  }
+  tick();
+  setInterval(tick,1000);
 })();
 
 // ── CANVAS BACKGROUND ──
@@ -398,6 +501,8 @@ function drawWheat(alpha,sway){
 }
 
 function frame(){
+  // #10 — pause animation when tab is hidden (saves CPU)
+  if(document.hidden){ requestAnimationFrame(frame); return; }
   time++;
   ctx.clearRect(0,0,W,H);ctx.globalAlpha=1;
 
@@ -447,41 +552,41 @@ function frame(){
 frame();
 
 // ── FORMSPREE SUBMIT ──
-document.getElementById('notifyBtn').addEventListener('click',async function(){
+async function submitEmail(){
+  const btn=document.getElementById('notifyBtn');
   const inp=document.getElementById('emailInput');
   const msg=document.getElementById('formMsg');
   const email=inp.value.trim();
-  if(!email||!email.includes('@')){
+  if(!email||!email.includes('@')||!email.includes('.')){
     msg.textContent='⚠ PLEASE ENTER A VALID EMAIL ADDRESS';
     msg.style.color='#e87a7a';msg.style.opacity='1';return;
   }
-  this.textContent='SENDING…';this.disabled=true;
+  btn.textContent='SENDING…';btn.disabled=true;msg.style.opacity='0';
   try{
     const res=await fetch('https://formspree.io/f/mzdjgygj',{
       method:'POST',
       headers:{'Accept':'application/json','Content-Type':'application/json'},
-      body:JSON.stringify({email})
+      body:JSON.stringify({email:email,_subject:'New Eastbridge subscriber: '+email})
     });
     if(res.ok){
-      this.textContent='✓ YOU ARE IN';
-      this.style.background='linear-gradient(135deg,#2d5a3d,#3a7a50)';
-      this.style.color='#e8c96b';
-      inp.value='';inp.placeholder='Welcome aboard! We will be in touch soon.';
-      msg.textContent='✦ THANK YOU — YOU ARE ON OUR EXCLUSIVE LIST ✦';
+      btn.textContent='✓ YOU ARE IN';
+      btn.style.background='linear-gradient(135deg,#2d5a3d,#3a7a50)';
+      btn.style.color='#e8c96b';
+      inp.value='';
+      inp.placeholder='Welcome aboard!';
+      // #13 — Clear, warm confirmation message
+      msg.innerHTML='✦ YOU\'RE ON THE LIST ✦<br><span style="font-size:9px;letter-spacing:1.5px;color:rgba(212,201,176,0.6);font-family:\'Cormorant Garamond\',serif;font-style:italic;font-weight:300;">We\'ll notify you when Eastbridge launches.</span>';
       msg.style.color='#e8c96b';msg.style.opacity='1';
     } else { throw new Error(); }
   } catch(err){
     console.error('Submit error:',err);
-    this.textContent='NOTIFY ME';this.disabled=false;
+    btn.textContent='NOTIFY ME';btn.disabled=false;
     msg.textContent='⚠ SOMETHING WENT WRONG — PLEASE TRY AGAIN';
     msg.style.color='#e87a7a';msg.style.opacity='1';
   }
-});
-
-// Enter key support
-document.getElementById('emailInput').addEventListener('keydown', function(e){
-  if(e.key==='Enter') document.getElementById('notifyBtn').click();
-});
+}
+document.getElementById('notifyBtn').addEventListener('click',submitEmail);
+// Enter key handled natively by form submit
 </script>
 </body>
 </html>
