@@ -292,7 +292,7 @@
   <!-- EMAIL CAPTURE -->
   <div class="notify-label">Join our exclusive list — customers &amp; distributors alike</div>
   <div class="notify">
-    <input type="email" id="emailInput" placeholder="Enter your email address…"/>
+    <input type="email" id="emailInput" placeholder="Enter your email address…" onkeydown="if(event.key==='Enter')document.getElementById('notifyBtn').click()"/>
     <button id="notifyBtn">NOTIFY ME</button>
   </div>
   <div id="formMsg"></div>
@@ -303,22 +303,32 @@
     <div class="fdot"></div>
     <span>CHICAGO, IL · USA</span>
     <div class="fdot"></div>
-    <span id="emailLink" style="cursor:pointer;">INFO@EASTBRIDGEPROVISIONS.COM</span>
+    <span id="emailLink" style="cursor:pointer;font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:3.5px;color:rgba(200,168,75,0.55);white-space:nowrap;"></span>
     <div class="fdot"></div>
     <span>© 2026 EASTBRIDGE PROVISIONS</span>
   </div>
 
 </div>
 
-<script>
-// ── EMAIL: click handler built from char codes, Cloudflare cannot touch it ──
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── EMAIL rendered 100% via JS charCodes - invisible to Cloudflare scanner ──
 (function(){
-  var c = [105,110,102,111,64,101,97,115,116,98,114,105,100,103,101,
-           112,114,111,118,105,115,105,111,110,115,46,99,111,109];
-  var email = c.map(function(n){return String.fromCharCode(n);}).join('');
-  var el = document.getElementById('emailLink');
-  el.onclick = function(){ window.location.href = 'mail'+'to:'+email; };
-  el.title = email;
+  // Each number = ASCII code. Cloudflare only scans HTML text, not runtime JS arrays.
+  var p=[105,110,102,111];             // info
+  var at=[64];                          // @
+  var d=[101,97,115,116,98,114,105,   // eastbri
+         100,103,101,112,114,111,118,  // dgeprov
+         105,115,105,111,110,115,      // isions
+         46,99,111,109];               // .com
+  var all=p.concat(at).concat(d);
+  var email=all.map(function(n){return String.fromCharCode(n);}).join('');
+  var el=document.getElementById('emailLink');
+  // Write the visible text and clickable link entirely at runtime
+  el.textContent=email.toUpperCase();
+  el.style.cursor='pointer';
+  el.addEventListener('click',function(){
+    window.location.href=String.fromCharCode(109,97,105,108,116,111,58)+email;
+  });
 })();
 
 // ── CANVAS BACKGROUND ──
@@ -444,4 +454,18 @@ document.getElementById('notifyBtn').addEventListener('click',async function(){
       msg.textContent='✦ THANK YOU — YOU ARE ON OUR EXCLUSIVE LIST ✦';
       msg.style.color='#e8c96b';msg.style.opacity='1';
     } else { throw new Error(); }
-  } catch{
+  } catch(err){
+    console.error('Submit error:',err);
+    this.textContent='NOTIFY ME';this.disabled=false;
+    msg.textContent='⚠ SOMETHING WENT WRONG — PLEASE TRY AGAIN';
+    msg.style.color='#e87a7a';msg.style.opacity='1';
+  }
+});
+
+// Enter key support
+document.getElementById('emailInput').addEventListener('keydown', function(e){
+  if(e.key==='Enter') document.getElementById('notifyBtn').click();
+});
+</script>
+</body>
+</html>
